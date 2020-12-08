@@ -5,6 +5,7 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
+    category_img = models.ImageField(upload_to='images/restaurant/category') 
 
     def __str__(self):
         return self.name
@@ -18,10 +19,12 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=20)
     type = MultiSelectField(choices=MY_CHOICES)
     time = models.CharField(max_length=20)
-    phone_number = models.IntegerField()
+    phone_number = models.CharField(max_length=10)
     location = models.CharField(max_length=50)
     created_date = models.DateTimeField(default=timezone.now)
     category = models.ManyToManyField(Category, related_name='category_name')
+    cover_img = models.ImageField(upload_to='images/restaurant/cover') 
+    profile_img = models.ImageField(upload_to='images/restaurant/profile') 
 
     def __str__(self):
         return self.name
@@ -47,6 +50,8 @@ class Cuisine(models.Model):
     description = models.CharField(max_length=200)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    cuisine_img = models.ImageField(upload_to='images/restaurant/cuisine') 
+
 
     def __str__(self):
         return self.name
